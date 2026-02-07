@@ -13,7 +13,6 @@ swaybg
 swaylock
 swayidle
 dunst
-wlogout
 grim
 slurp
 wl-clipboard
@@ -69,8 +68,8 @@ wget
 curl
 rclone
 htop
-neofetch
-light
+fastfetch
+brightnessctl
 playerctl
 
 # Login Manager (optional, we can auto-login to Hyprland)
