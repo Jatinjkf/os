@@ -45,6 +45,7 @@ docker run --privileged --rm \
         fi && \
 
         # 4. Apply SnugOS Branding
+        #    This ensures the boot menu shows 'SnugOS' instead of 'Arch Linux'
         echo 'Applying SnugOS branding to bootloaders...' && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
