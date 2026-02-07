@@ -1,5 +1,6 @@
 # Base
 base
+base-devel
 linux
 linux-firmware
 amd-ucode

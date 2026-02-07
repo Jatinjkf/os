@@ -20,4 +20,5 @@ file_permissions=(
   ["/usr/local/bin/mount-gdrive"]="0:0:755"
   ["/usr/local/bin/pomodoro-status"]="0:0:755"
   ["/usr/local/bin/pomodoro-toggle"]="0:0:755"
+  ["/usr/local/bin/install-yay"]="0:0:755"
 )
