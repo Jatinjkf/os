@@ -1,6 +1,6 @@
-# The Ultimate Newbie Guide to Zenith OS
+# The Ultimate Newbie Guide to SnugOS
 
-This guide will take you from Windows 11 to having your own custom, high-performance Zenith OS.
+This guide will take you from Windows 11 to having your own custom, high-performance SnugOS.
 
 ---
 
@@ -25,12 +25,12 @@ To build a Linux OS, we need a small Linux corner inside Windows.
 1.  **Open Ubuntu:** (Search for "Ubuntu" in your Windows Start menu).
 2.  **Create a folder:** Type these commands one by one:
     ```bash
-    mkdir -p ~/zenith-build
-    cd ~/zenith-build
+    mkdir -p ~/snugos-build
+    cd ~/snugos-build
     ```
 3.  **Download/Copy the Recipe:**
     I have provided the files in this chat. You need to create the files exactly as I've shown.
-    *(Tip: You can access your Ubuntu files from Windows Explorer by typing `\\wsl$\Ubuntu\home\YOURNAME\zenith-build` in the address bar).*
+    *(Tip: You can access your Ubuntu files from Windows Explorer by typing `\\wsl$\Ubuntu\home\YOURNAME\snugos-build` in the address bar).*
 
 ---
 
@@ -44,7 +44,7 @@ This is where the magic happens. We will use the "Chef" script to cook the ISO.
     bash build_zenith.sh
     ```
 2.  **Wait:** It will download the Arch Linux base and all your apps (WhatsApp, Obsidian, etc.). This takes about 10-20 minutes.
-3.  **Result:** When it says "SUCCESS!", you will have a file named `zenith-os-x86_64.iso` in the `out` folder.
+3.  **Result:** When it says "SUCCESS!", you will have a file named `snug-os-x86_64.iso` in the `out` folder.
 
 ---
 
@@ -68,15 +68,15 @@ This lets you try the OS without changing anything on your hard drive.
 1.  Plug the USB into the laptop you want to use.
 2.  Turn on the laptop and immediately tap the **Boot Menu Key** (usually F12, F11, or Esc).
 3.  Select your USB stick.
-4.  Zenith OS will load! It will auto-login.
+4.  SnugOS will load! It will auto-login.
     *   `Super+Space` opens the app search.
     *   `Super+W` opens WhatsApp.
     *   `Super+L` opens PW Live.
 
 ### Installing (Permanent)
 If you love it and want it as your main OS:
-1.  While running Zenith OS from the USB, press `Super+Space`.
-2.  Type "Install" and click **Install Zenith OS**.
+1.  While running SnugOS from the USB, press `Super+Space`.
+2.  Type "Install" and click **Install SnugOS**.
 3.  A terminal will open with **Archinstall**.
     *   Follow the prompts (choose your language, keyboard, and drive).
     *   **Warning:** Selecting "Wipe all drives" will delete Windows 11. If you want to keep Windows, choose "Dual Boot" or "Manual Partitioning" (Expert level).

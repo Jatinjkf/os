@@ -1,0 +1,38 @@
+#!/bin/bash
+# install-yay.sh - Helper script to install the 'yay' AUR helper
+# This allows users to easily install software from the AUR (like Google Chrome, VS Code, etc.)
+
+set -e
+
+echo "--- Installing yay (AUR Helper) ---"
+echo "This will allow you to install packages from the Arch User Repository."
+
+# 1. Ensure we have the base-devel group and git installed
+echo ":: Checking for build tools..."
+if ! pacman -Qi base-devel > /dev/null 2>&1; then
+    echo "Installing base-devel..."
+    sudo pacman -S --needed --noconfirm base-devel
+fi
+if ! pacman -Qi git > /dev/null 2>&1; then
+    echo "Installing git..."
+    sudo pacman -S --needed --noconfirm git
+fi
+
+# 2. Clone the yay repository
+echo ":: Cloning yay repository..."
+BUILD_DIR=$(mktemp -d)
+git clone https://aur.archlinux.org/yay.git "$BUILD_DIR/yay"
+
+# 3. Build and install package
+echo ":: Building yay..."
+cd "$BUILD_DIR/yay"
+makepkg -si --noconfirm
+
+# 4. Cleanup
+echo ":: Cleaning up..."
+cd /
+rm -rf "$BUILD_DIR"
+
+echo "--- SUCCESS! ---"
+echo "You can now use 'yay' to install packages."
+echo "Example: yay -S google-chrome"

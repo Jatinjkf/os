@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Zenith OS automated build script for Windows/WSL users
+# SnugOS automated build script for Windows/WSL users
 # This script runs inside WSL and uses Docker to build the Arch ISO.
 
-echo "--- Zenith OS 'Chef' Script ---"
+echo "--- SnugOS 'Chef' Script ---"
 
 # 1. Check if Docker is running
 if ! docker info > /dev/null 2>&1; then
@@ -19,7 +19,37 @@ docker run --privileged --rm \
     -v "$(pwd)/archlive:/archlive" \
     -v "$(pwd)/out:/out" \
     archlinux:latest bash -c "
-        pacman -Sy --noconfirm archiso && \
+        # 1. Install archiso and grub (needed for UEFI bootloader generation)
+        pacman -Sy --noconfirm archiso grub && \
+
+        # 2. Setup Bootloader Configurations
+        if [ ! -d /archlive/syslinux ]; then
+            echo 'Copying default syslinux config...';
+            cp -r /usr/share/archiso/configs/releng/syslinux /archlive/;
+        fi && \
+        if [ ! -d /archlive/grub ]; then
+            echo 'Copying default grub config...';
+            cp -r /usr/share/archiso/configs/releng/grub /archlive/;
+        fi && \
+        if [ ! -d /archlive/efiboot ]; then
+            echo 'Copying default efiboot config...';
+            cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
+        fi && \
+
+        # 3. Apply SnugOS Branding
+        echo 'Applying SnugOS branding to bootloaders...' && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
+
+        # 4. Apply SnugOS Boot Logo
+        if [ -f /archlive/logo.png ]; then
+            echo 'Applying custom boot logo...'
+            cp /archlive/logo.png /archlive/syslinux/splash.png 2>/dev/null || true
+            cp /archlive/logo.png /archlive/grub/splash.png 2>/dev/null || true
+        fi && \
+
+        # 5. Build the ISO
         mkarchiso -v -w /tmp/archiso-workspace -o /out /archlive
     "
 

@@ -1,6 +1,6 @@
-# Zenith OS Build Instructions
+# SnugOS Build Instructions
 
-Zenith OS is a minimal, eye-candy Arch Linux-based operating system designed for productivity and focus.
+SnugOS is a minimal, eye-candy Arch Linux-based operating system designed for productivity and focus.
 
 ## Included Apps
 - **WhatsApp**: Dedicated web app window (Super+W)
@@ -25,7 +25,7 @@ To build the ISO, you need an Arch Linux environment (or a machine with `archiso
 
 3. **Build the ISO**:
    ```bash
-   cd zenith-os/archlive
+   cd snug-os/archlive
    sudo mkarchiso -v -w /tmp/archiso-workspace -o ../out .
    ```
 
@@ -35,5 +35,5 @@ To build the ISO, you need an Arch Linux environment (or a machine with `archiso
 ## Usage
 - **Boot**: Select your USB from the BIOS/Boot menu.
 - **Login**: The system will auto-login to the live environment and start Hyprland.
-- **Installer**: Click the "Install Zenith OS" icon in the app launcher (Super+Space) to start the installation.
+- **Installer**: Click the "Install SnugOS" icon in the app launcher (Super+Space) to start the installation.
 - **Google Drive**: Run `mount-gdrive` from the terminal or launcher to link your account.
