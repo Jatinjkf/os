@@ -71,6 +71,8 @@ htop
 fastfetch
 brightnessctl
 playerctl
+ntfs-3g
+os-prober
 
 # Login Manager (optional, we can auto-login to Hyprland)
 greetd
