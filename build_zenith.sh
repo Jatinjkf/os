@@ -37,7 +37,22 @@ docker run --privileged --rm \
             cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
         fi && \
 
-        # 3. Build the ISO
+        # 3. Customize Bootloader Names (Arch Linux -> Zenith OS)
+        #    This ensures the boot menu shows "Zenith OS" instead of "Arch Linux"
+        echo 'Customizing bootloader labels...' && \
+        sed -i 's/Arch Linux/Zenith OS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/Zenith OS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/Zenith OS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
+
+        # 4. Customize Boot Logo (Optional)
+        #    If a 'logo.png' exists in archlive/, use it as the splash screen.
+        if [ -f /archlive/logo.png ]; then
+            echo 'Custom logo found! Applying...'
+            cp /archlive/logo.png /archlive/syslinux/splash.png 2>/dev/null || true
+            cp /archlive/logo.png /archlive/grub/splash.png 2>/dev/null || true
+        fi && \
+
+        # 5. Build the ISO
         mkarchiso -v -w /tmp/archiso-workspace -o /out /archlive
     "
 
