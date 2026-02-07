@@ -19,37 +19,45 @@ docker run --privileged --rm \
     -v "$(pwd)/archlive:/archlive" \
     -v "$(pwd)/out:/out" \
     archlinux:latest bash -c "
-        # 1. Install archiso and grub (needed for UEFI bootloader generation)
-        pacman -Sy --noconfirm archiso grub && \
+        # 1. Install archiso and tools (ensure grub is installed on host for mkarchiso)
+        pacman -Sy --noconfirm archiso && \
+        pacman -S --noconfirm --needed grub dosfstools mtools libisoburn && \
 
-        # 2. Setup Bootloader Configurations
-        if [ ! -d /archlive/syslinux ]; then
+        # 2. Fix potential line ending issues in package list (Windows/CRLF fix)
+        sed -i 's/\r$//' /archlive/packages.x86_64 && \
+
+        # 3. Setup Bootloader Configurations
+        # Check for specific files instead of just directories to handle empty folders
+        if [ ! -f /archlive/syslinux/syslinux.cfg ]; then
             echo 'Copying default syslinux config...';
+            rm -rf /archlive/syslinux 2>/dev/null || true
             cp -r /usr/share/archiso/configs/releng/syslinux /archlive/;
         fi && \
-        if [ ! -d /archlive/grub ]; then
+        if [ ! -f /archlive/grub/grub.cfg ]; then
             echo 'Copying default grub config...';
+            rm -rf /archlive/grub 2>/dev/null || true
             cp -r /usr/share/archiso/configs/releng/grub /archlive/;
         fi && \
-        if [ ! -d /archlive/efiboot ]; then
+        if [ ! -f /archlive/efiboot/loader/loader.conf ]; then
             echo 'Copying default efiboot config...';
+            rm -rf /archlive/efiboot 2>/dev/null || true
             cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
         fi && \
 
-        # 3. Apply SnugOS Branding
+        # 4. Apply SnugOS Branding
         echo 'Applying SnugOS branding to bootloaders...' && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
 
-        # 4. Apply SnugOS Boot Logo
+        # 5. Apply SnugOS Boot Logo
         if [ -f /archlive/logo.png ]; then
             echo 'Applying custom boot logo...'
             cp /archlive/logo.png /archlive/syslinux/splash.png 2>/dev/null || true
             cp /archlive/logo.png /archlive/grub/splash.png 2>/dev/null || true
         fi && \
 
-        # 5. Build the ISO
+        # 6. Build the ISO
         mkarchiso -v -w /tmp/archiso-workspace -o /out /archlive
     "
 

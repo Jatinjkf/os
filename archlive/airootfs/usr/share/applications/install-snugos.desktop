@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Install SnugOS
-Exec=kitty -e archinstall
+Exec=kitty -e sudo archinstall
 Icon=system-software-install
 Terminal=false
 Type=Application
