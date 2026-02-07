@@ -80,3 +80,10 @@ greetd-tuigreet
 ttf-jetbrains-mono-nerd
 papirus-icon-theme
 breeze-icons
+
+# Bootloader & ISO Tools
+syslinux
+grub
+efibootmgr
+dosfstools
+mtools
