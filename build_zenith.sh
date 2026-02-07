@@ -19,7 +19,25 @@ docker run --privileged --rm \
     -v "$(pwd)/archlive:/archlive" \
     -v "$(pwd)/out:/out" \
     archlinux:latest bash -c "
-        pacman -Sy --noconfirm archiso && \
+        # 1. Install archiso and grub (needed for UEFI bootloader generation)
+        pacman -Sy --noconfirm archiso grub && \
+
+        # 2. Copy missing bootloader configurations from the default 'releng' profile
+        #    This fixes errors about missing syslinux/grub directories.
+        if [ ! -d /archlive/syslinux ]; then
+            echo 'Copying default syslinux config...';
+            cp -r /usr/share/archiso/configs/releng/syslinux /archlive/;
+        fi && \
+        if [ ! -d /archlive/grub ]; then
+            echo 'Copying default grub config...';
+            cp -r /usr/share/archiso/configs/releng/grub /archlive/;
+        fi && \
+        if [ ! -d /archlive/efiboot ]; then
+            echo 'Copying default efiboot config...';
+            cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
+        fi && \
+
+        # 3. Build the ISO
         mkarchiso -v -w /tmp/archiso-workspace -o /out /archlive
     "
 
