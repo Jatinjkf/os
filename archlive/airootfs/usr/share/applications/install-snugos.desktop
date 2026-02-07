@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Install Zenith OS
+Name=Install SnugOS
 Exec=kitty -e archinstall
 Icon=system-software-install
 Terminal=false
