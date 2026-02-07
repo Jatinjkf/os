@@ -1,0 +1,14 @@
+#!/bin/bash
+STATE_FILE="/tmp/pomodoro_state"
+
+if [ -f $STATE_FILE ]; then
+    rm $STATE_FILE
+    rm -f /tmp/pomodoro_notified
+    notify-send "Pomodoro" "Timer stopped"
+else
+    START_TIME=$(date +%s)
+    DURATION=1500 # 25 minutes
+    echo "$START_TIME $DURATION" > $STATE_FILE
+    rm -f /tmp/pomodoro_notified
+    notify-send "Pomodoro" "Timer started: 25 minutes"
+fi

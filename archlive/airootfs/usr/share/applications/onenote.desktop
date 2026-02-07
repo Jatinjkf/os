@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=OneNote
+Exec=onenote-web
+Icon=onenote
+Terminal=false
+Type=Application
+Categories=Office;

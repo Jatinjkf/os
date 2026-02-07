@@ -1,0 +1,10 @@
+#!/bin/bash
+# Simple script to help user set up Google Drive with rclone
+if [ ! -f ~/.config/rclone/rclone.conf ]; then
+    echo "Starting Google Drive setup..."
+    rclone config create gdrive drive
+fi
+
+mkdir -p ~/GoogleDrive
+rclone mount gdrive: ~/GoogleDrive --vfs-cache-mode full &
+echo "Google Drive mounted at ~/GoogleDrive"

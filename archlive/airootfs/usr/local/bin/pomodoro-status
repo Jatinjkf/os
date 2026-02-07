@@ -1,0 +1,25 @@
+#!/bin/bash
+STATE_FILE="/tmp/pomodoro_state"
+
+if [ ! -f $STATE_FILE ]; then
+    echo "Idle"
+    exit 0
+fi
+
+read -r START_TIME DURATION < $STATE_FILE
+NOW=$(date +%s)
+ELAPSED=$((NOW - START_TIME))
+REMAINING=$((DURATION - ELAPSED))
+
+if [ $REMAINING -le 0 ]; then
+    echo "Done! ☕"
+    # Optionally send a notification
+    if [ ! -f /tmp/pomodoro_notified ]; then
+        notify-send "Pomodoro" "Time is up! Take a break."
+        touch /tmp/pomodoro_notified
+    fi
+else
+    MINS=$((REMAINING / 60))
+    SECS=$((REMAINING % 60))
+    printf "%02d:%02d\n" $MINS $SECS
+fi

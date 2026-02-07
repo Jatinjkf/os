@@ -1,0 +1,82 @@
+# Base
+base
+linux
+linux-firmware
+amd-ucode
+intel-ucode
+
+# Desktop Environment
+hyprland
+waybar
+wofi
+swaybg
+swaylock
+swayidle
+dunst
+wlogout
+grim
+slurp
+wl-clipboard
+kitty
+xdg-desktop-portal-hyprland
+qt5-wayland
+qt6-wayland
+
+# File Manager
+thunar
+thunar-archive-plugin
+thunar-volman
+gvfs
+gvfs-google
+gvfs-mtp
+gnome-online-accounts
+tumbler
+
+# Applications
+chromium
+obsidian
+zathura
+zathura-pdf-mupdf
+gnome-clocks
+pavucontrol
+blueman
+bluez
+bluez-utils
+networkmanager
+network-manager-applet
+nm-connection-editor
+
+# Audio
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+
+# Fonts
+ttf-font-awesome
+ttf-dejavu
+ttf-liberation
+noto-fonts-emoji
+
+# Tools
+archinstall
+sudo
+nano
+vim
+git
+wget
+curl
+rclone
+htop
+neofetch
+light
+playerctl
+
+# Login Manager (optional, we can auto-login to Hyprland)
+greetd
+greetd-tuigreet
+# Eye Candy
+ttf-jetbrains-mono-nerd
+papirus-icon-theme
+breeze-icons
