@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="zenith-os"
-iso_label="ZENITH_$(date +%Y%m)"
-iso_publisher="Zenith OS <https://zenith-os.org>"
-iso_application="Zenith OS Live/Installation CD"
+iso_name="snug-os"
+iso_label="SNUG_$(date +%Y%m)"
+iso_publisher="SnugOS <https://snug-os.org>"
+iso_application="SnugOS Live/Installation CD"
 iso_version="$(date +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')

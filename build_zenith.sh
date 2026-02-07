@@ -2,7 +2,7 @@
 # Zenith OS automated build script for Windows/WSL users
 # This script runs inside WSL and uses Docker to build the Arch ISO.
 
-echo "--- Zenith OS 'Chef' Script ---"
+echo "--- SnugOS 'Chef' Script ---"
 
 # 1. Check if Docker is running
 if ! docker info > /dev/null 2>&1; then
@@ -37,12 +37,12 @@ docker run --privileged --rm \
             cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
         fi && \
 
-        # 3. Customize Bootloader Names (Arch Linux -> Zenith OS)
-        #    This ensures the boot menu shows "Zenith OS" instead of "Arch Linux"
+        # 3. Customize Bootloader Names (Arch Linux -> SnugOS)
+        #    This ensures the boot menu shows "SnugOS" instead of "Arch Linux"
         echo 'Customizing bootloader labels...' && \
-        sed -i 's/Arch Linux/Zenith OS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
-        sed -i 's/Arch Linux/Zenith OS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
-        sed -i 's/Arch Linux/Zenith OS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
+        sed -i 's/Arch Linux/SnugOS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
 
         # 4. Customize Boot Logo (Optional)
         #    If a 'logo.png' exists in archlive/, use it as the splash screen.
