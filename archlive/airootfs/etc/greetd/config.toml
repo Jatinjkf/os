@@ -11,4 +11,4 @@ user = "greetd"
 # The initial session, which runs when the system boots.
 [initial_session]
 command = "Hyprland"
-user = "root"
+user = "snug"
