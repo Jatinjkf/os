@@ -12,7 +12,9 @@ bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito' 'uefi-ia32.grub.esp' 'ue
 arch="x86_64"
 pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"
-airootfs_image_tool_options=('-comp' 'gzip' '-Xbcj' 'x86' '-b' '1M' '-Xdict-size' '1M')
+# gzip options: -comp gzip -b <block_size>
+# Removed -Xbcj and -Xdict-size which are not supported by gzip
+airootfs_image_tool_options=('-comp' 'gzip' '-b' '1M')
 file_permissions=(
   ["/etc/shadow"]="0:0:400"
   ["/usr/local/bin/whatsapp-web"]="0:0:755"
