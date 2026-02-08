@@ -38,6 +38,25 @@ zenity
 yad
 plymouth
 
+# Shell & Prompt (Dragonized Style)
+fish
+starship
+eza
+bat
+micro
+neovim
+fzf
+ripgrep
+btop
+fastfetch
+
+# Gaming & Performance
+gamemode
+mangohud
+goverlay
+steam
+lutris
+
 # File Manager
 thunar
 thunar-archive-plugin
@@ -89,8 +108,6 @@ git
 wget
 curl
 rclone
-htop
-fastfetch
 brightnessctl
 playerctl
 ntfs-3g
@@ -99,10 +116,11 @@ os-prober
 # Login Manager (optional, we can auto-login to Hyprland)
 greetd
 greetd-tuigreet
-# Eye Candy
+# Eye Candy (Garuda-esque)
 ttf-jetbrains-mono-nerd
 papirus-icon-theme
 breeze-icons
+gnome-themes-extra
 
 # Bootloader & ISO Tools
 syslinux

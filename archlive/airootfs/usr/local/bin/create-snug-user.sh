@@ -6,9 +6,16 @@ set -e
 # Create the user 'snug' if it doesn't exist
 if ! id "snug" &>/dev/null; then
     echo "Creating user 'snug'..."
-    useradd -m -G wheel,video,audio,storage,network,sys,optical,uucp,lp,input,kvm -s /bin/bash snug
+
+    # Use fish as the default shell if available
+    SHELL_BIN="/bin/bash"
+    if [ -f /bin/fish ]; then
+        SHELL_BIN="/bin/fish"
+    fi
+
+    useradd -m -G wheel,video,audio,storage,network,sys,optical,uucp,lp,input,kvm -s "$SHELL_BIN" snug
     echo "snug:snug" | chpasswd
-    echo "User 'snug' created successfully."
+    echo "User 'snug' created successfully with shell $SHELL_BIN."
 fi
 
 # Ensure the 'wheel' group can use sudo without a password

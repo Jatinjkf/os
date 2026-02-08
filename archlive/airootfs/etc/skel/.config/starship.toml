@@ -1,0 +1,12 @@
+format = """
+[╭─](bold blue)$directory$rust$package$git_branch$git_status
+[╰─](bold blue)$character"""
+
+[directory]
+style = "bold cyan"
+truncation_length = 3
+truncate_to_repo = false
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
