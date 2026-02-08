@@ -24,12 +24,24 @@ docker run --privileged --rm \
         pacman -S --noconfirm --needed grub dosfstools mtools libisoburn && \
 
         # 1.5 Setup Chaotic-AUR (for OpenTabletDriver and other community packages)
-        # Import the key
+        # Initialize pacman keyring properly first
+        pacman-key --init && \
+        pacman-key --populate archlinux && \
+        # Import the chaotic key
         pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com && \
         pacman-key --lsign-key 3056513887B78AEB && \
         # Install the keyring and mirrorlist directly
         pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' && \
         pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-mirrorlist.pkg.tar.zst' && \
+        # Ensure the mirrorlist exists where pacman.conf expects it (mkarchiso quirk)
+        if [ ! -f /etc/pacman.d/chaotic-mirrorlist ]; then
+            echo "WARNING: chaotic-mirrorlist not found in /etc/pacman.d/. Searching..."
+            find / -name chaotic-mirrorlist -exec cp {} /etc/pacman.d/ \;
+        fi && \
+        # Fallback: Create it if still missing
+        if [ ! -f /etc/pacman.d/chaotic-mirrorlist ]; then
+             echo "Server = https://cdn-mirror.chaotic.cx/chaotic-aur/x86_64" > /etc/pacman.d/chaotic-mirrorlist
+        fi && \
 
         # 2. Fix potential line ending issues in package list (Windows/CRLF fix)
         sed -i 's/\r$//' /archlive/packages.x86_64 && \
