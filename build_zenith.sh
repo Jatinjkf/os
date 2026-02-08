@@ -62,6 +62,8 @@ docker run --privileged --rm \
             echo 'Applying custom boot logo...'
             cp /archlive/logo.png /archlive/syslinux/splash.png 2>/dev/null || true
             cp /archlive/logo.png /archlive/grub/splash.png 2>/dev/null || true
+        else
+            echo 'WARNING: No logo.png found in /archlive. Using default Arch splash.'
         fi && \
 
         # 6. Build the ISO
