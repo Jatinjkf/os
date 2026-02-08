@@ -57,7 +57,6 @@ xournalpp
 rnote
 mypaint
 krita
-lorien-bin
 
 # Hardware & Security (New)
 upower
@@ -157,7 +156,6 @@ gnome-themes-extra
 wlogout
 sweet-gtk-theme
 candy-icons-git
-beauty-line-icon-theme-git
 
 # Bootloader & ISO Tools
 syslinux
