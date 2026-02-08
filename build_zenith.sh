@@ -51,6 +51,12 @@ docker run --privileged --rm \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
         sed -i 's/Arch Linux/SnugOS/g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
 
+        # Add 'splash' kernel parameter for Plymouth
+        echo 'Enabling Plymouth boot splash...' && \
+        sed -i 's/quiet/quiet splash/g' /archlive/syslinux/*.cfg 2>/dev/null || true && \
+        sed -i 's/quiet/quiet splash/g' /archlive/grub/grub.cfg 2>/dev/null || true && \
+        sed -i 's/options /options splash /g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true && \
+
         # 5. Apply SnugOS Boot Logo
         if [ -f /archlive/logo.png ]; then
             echo 'Applying custom boot logo...'

@@ -32,6 +32,11 @@ kitty
 xdg-desktop-portal-hyprland
 qt5-wayland
 qt6-wayland
+nwg-look
+hyprpaper
+zenity
+yad
+plymouth
 
 # File Manager
 thunar
@@ -42,6 +47,7 @@ gvfs-google
 gvfs-mtp
 gnome-online-accounts
 tumbler
+file-roller
 
 # Applications
 chromium
@@ -56,6 +62,10 @@ bluez-utils
 networkmanager
 network-manager-applet
 nm-connection-editor
+vlc
+imv
+gnome-system-monitor
+gnome-software
 
 # Audio
 pipewire
