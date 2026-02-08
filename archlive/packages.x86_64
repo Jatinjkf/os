@@ -3,8 +3,19 @@ base
 base-devel
 linux
 linux-firmware
+sof-firmware
 amd-ucode
 intel-ucode
+
+# Graphics Drivers
+mesa
+xf86-video-amdgpu
+xf86-video-intel
+xf86-video-nouveau
+xf86-video-vmware
+vulkan-radeon
+vulkan-intel
+virtualbox-guest-utils
 
 # Desktop Environment
 hyprland
