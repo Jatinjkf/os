@@ -53,10 +53,10 @@ chaotic-mirrorlist
 opentabletdriver
 xf86-input-wacom
 libwacom
-xournalpp
-rnote
-mypaint
-krita
+# xournalpp
+# rnote
+# mypaint
+# krita
 
 # Hardware & Security (New)
 upower
@@ -80,11 +80,11 @@ btop
 fastfetch
 
 # Gaming & Performance
-gamemode
-mangohud
-goverlay
-steam
-lutris
+# gamemode
+# mangohud
+# goverlay
+# steam
+# lutris
 
 # File Manager (Dragonized/KDE)
 dolphin
@@ -100,8 +100,8 @@ gvfs-mtp
 gnome-online-accounts
 
 # Applications
-chromium
-obsidian
+# chromium
+# obsidian
 zathura
 zathura-pdf-mupdf
 gnome-clocks
@@ -112,10 +112,10 @@ bluez-utils
 networkmanager
 network-manager-applet
 nm-connection-editor
-vlc
+# vlc
 imv
 gnome-system-monitor
-gnome-software
+# gnome-software
 
 # Audio
 pipewire
