@@ -38,6 +38,16 @@ zenity
 yad
 plymouth
 
+# Essential Functionality (New)
+polkit-kde-agent
+cliphist
+wl-clip-persist
+swappy
+wf-recorder
+wofi-emoji
+tlp
+tlp-rdw
+
 # Shell & Prompt (Dragonized Style)
 fish
 starship
