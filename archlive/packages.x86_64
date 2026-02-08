@@ -48,6 +48,18 @@ wofi-emoji
 tlp
 tlp-rdw
 
+# Creative & Note-Taking (New)
+chaotic-keyring
+chaotic-mirrorlist
+opentabletdriver
+xf86-input-wacom
+libwacom
+xournalpp
+rnote
+mypaint
+krita
+lorien-bin
+
 # Hardware & Security (New)
 upower
 bolt
@@ -128,6 +140,7 @@ vim
 git
 wget
 curl
+rsync
 rclone
 brightnessctl
 playerctl
@@ -142,6 +155,10 @@ ttf-jetbrains-mono-nerd
 papirus-icon-theme
 breeze-icons
 gnome-themes-extra
+wlogout
+sweet-gtk-theme
+candy-icons-git
+beauty-line-icon-theme-git
 
 # Bootloader & ISO Tools
 syslinux

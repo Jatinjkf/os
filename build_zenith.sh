@@ -23,6 +23,14 @@ docker run --privileged --rm \
         pacman -Sy --noconfirm archiso && \
         pacman -S --noconfirm --needed grub dosfstools mtools libisoburn && \
 
+        # 1.5 Setup Chaotic-AUR (for OpenTabletDriver and other community packages)
+        # Import the key
+        pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com && \
+        pacman-key --lsign-key 3056513887B78AEB && \
+        # Install the keyring and mirrorlist directly
+        pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' && \
+        pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-mirrorlist.pkg.tar.zst' && \
+
         # 2. Fix potential line ending issues in package list (Windows/CRLF fix)
         sed -i 's/\r$//' /archlive/packages.x86_64 && \
 
