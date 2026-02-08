@@ -57,16 +57,18 @@ goverlay
 steam
 lutris
 
-# File Manager
-thunar
-thunar-archive-plugin
-thunar-volman
+# File Manager (Dragonized/KDE)
+dolphin
+dolphin-plugins
+kio-extras
+ffmpegthumbs
+ark
+qt5-imageformats
+qt6-imageformats
 gvfs
 gvfs-google
 gvfs-mtp
 gnome-online-accounts
-tumbler
-file-roller
 
 # Applications
 chromium
