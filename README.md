@@ -4,7 +4,7 @@
 ![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-00ffff?style=for-the-badge&logo=hyprland)
 ![Chaotic-AUR](https://img.shields.io/badge/Chaotic_AUR-Enabled-725ac1?style=for-the-badge&logo=archlinux)
 
-**SnugOS** (formerly known as Zenith OS) is a custom Arch Linux distribution designed for creators, gamers, and minimalists. It features a stunning "Dragonized Minimal" desktop environment powered by **Hyprland**, pre-configured for productivity and performance out of the box.
+**SnugOS** is a custom Arch Linux distribution designed for creators, gamers, and minimalists. It features a stunning "Dragonized Minimal" desktop environment powered by **Hyprland**, pre-configured for productivity and performance out of the box.
 
 Unlike a vanilla Arch install, SnugOS comes with everything set up: drivers, themes, gaming tools, and creative apps.
 
