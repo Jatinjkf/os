@@ -76,11 +76,24 @@ docker run --privileged --rm \
         sed -i 's/quiet/quiet splash/g' /archlive/grub/grub.cfg 2>/dev/null || true
         sed -i 's/options /options splash /g' /archlive/efiboot/loader/entries/*.conf 2>/dev/null || true
 
-        # 5. Apply SnugOS Boot Logo
+        # 5. Apply MilkGrub Theme
+        if [ -d /archlive/grub/themes/MilkGrub ]; then
+            echo 'Applying MilkGrub theme...'
+            # Ensure the theme directory exists in the build output
+            mkdir -p /archlive/grub/themes/MilkGrub
+
+            # Update grub.cfg to load the theme
+            # Check if theme config is already there to avoid duplicates
+            if ! grep -q "set theme=" /archlive/grub/grub.cfg; then
+                # Insert theme config at the beginning of grub.cfg
+                sed -i '1i set theme=/boot/grub/themes/MilkGrub/theme.txt\nset timeout=10\ninsmod png\ninsmod gfxterm\nterminal_output gfxterm' /archlive/grub/grub.cfg
+            fi
+        fi
+
+        # 6. Apply SnugOS Boot Logo (legacy splash for syslinux)
         if [ -f /archlive/logo.png ]; then
             echo 'Applying custom boot logo...'
             cp /archlive/logo.png /archlive/syslinux/splash.png 2>/dev/null || true
-            cp /archlive/logo.png /archlive/grub/splash.png 2>/dev/null || true
         else
             echo 'WARNING: No logo.png found in /archlive. Using default Arch splash.'
         fi
