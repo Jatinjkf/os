@@ -34,20 +34,12 @@ docker run --privileged --rm \
         pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
         pacman-key --lsign-key 3056513887B78AEB
 
-        # Install the keyring and mirrorlist directly
+        # Install the keyring directly
         pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-        pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-mirrorlist.pkg.tar.zst'
 
-        # Ensure the mirrorlist exists where pacman.conf expects it (mkarchiso quirk)
-        if [ ! -f /etc/pacman.d/chaotic-mirrorlist ]; then
-            echo 'WARNING: chaotic-mirrorlist not found in /etc/pacman.d/. Searching...'
-            find / -name chaotic-mirrorlist -exec cp {} /etc/pacman.d/ \;
-        fi
-
-        # Fallback: Create it if still missing
-        if [ ! -f /etc/pacman.d/chaotic-mirrorlist ]; then
-             echo 'Server = https://cdn-mirror.chaotic.cx/chaotic-aur/x86_64' > /etc/pacman.d/chaotic-mirrorlist
-        fi
+        # Manually create the mirrorlist to avoid 404 errors or circular dependencies
+        # This is the primary CDN mirror which is reliable.
+        echo 'Server = https://cdn-mirror.chaotic.cx/chaotic-aur/x86_64' > /etc/pacman.d/chaotic-mirrorlist
 
         # 2. Fix potential line ending issues in package list (Windows/CRLF fix)
         sed -i 's/\r$//' /archlive/packages.x86_64
