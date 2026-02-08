@@ -1,94 +1,104 @@
-# The Ultimate Newbie Guide to SnugOS
+# SnugOS - The Ultimate Technical Guide
 
-This guide will take you from Windows 11 to having your own custom, high-performance SnugOS.
+This guide is for power users, developers, and those who want to understand the inner workings of SnugOS (formerly Zenith OS). It covers the architecture, the build process, the installer logic, and post-installation customization.
 
----
+## 🏗️ Architecture Overview
 
-## Phase 1: Set Up Your "Kitchen" (Windows 11)
+SnugOS is built on top of **Arch Linux** using the `archiso` toolchain. However, it significantly deviates from a standard Arch install in several key ways:
 
-To build a Linux OS, we need a small Linux corner inside Windows.
+### 1. The "Live-to-Install" Philosophy
+Unlike most distros that install a fresh set of packages, SnugOS aims to persist the **exact configuration** of the live environment to the installed system.
+*   **Live Environment:** Uses a read-only `airootfs` (Arch Linux Installation Root Filesystem).
+*   **Configuration:** All custom dotfiles (Hyprland, Waybar, GTK themes) are stored in `/etc/skel/` within the ISO.
+*   **User Creation:** On boot, a systemd service (`create-snug-user`) runs `customize_airootfs.sh` to create the `snug` user and apply these dotfiles.
 
-1.  **Enable WSL2:**
-    *   Right-click your **Start Button** and select **Terminal (Admin)**.
-    *   Type: `wsl --install` and press Enter.
-    *   **Restart your computer.** After restarting, a black window (Ubuntu) will open. Follow the prompts to create a username and password.
+### 2. The Custom Installer Wrapper (`install-snugos.sh`)
+The standard `archinstall` script is powerful but generic. It doesn't know about our custom themes.
+*   **How it works:** We wrap `archinstall` with a custom script (`/usr/local/bin/install-snugos.sh`).
+*   **Process:**
+    1.  Runs `archinstall` to partition disks, install base packages, and set up the user.
+    2.  **Crucially:** It mounts the newly installed system's partition.
+    3.  It uses `rsync` to copy the entire `/etc/skel/` directory from the live ISO to the new user's home directory (`/home/$USER`).
+    4.  It enables essential services (`greetd`, `NetworkManager`, `bluetooth`) on the target system.
+    5.  It regenerates the `initramfs` to include the Plymouth boot splash.
 
-2.  **Install Docker Desktop:**
-    *   Go to [Docker Desktop](https://www.docker.com/products/docker-desktop/) and download/install it for Windows.
-    *   **Open Docker Desktop** and make sure the little whale icon in your system tray (bottom right) is steady.
-    *   In Docker Desktop Settings -> Resources -> WSL Integration, make sure "Ubuntu" is toggled **ON**.
-
----
-
-## Phase 2: Create the Files
-
-1.  **Open Ubuntu:** (Search for "Ubuntu" in your Windows Start menu).
-2.  **Create a folder:** Type these commands one by one:
-    ```bash
-    mkdir -p ~/snugos-build
-    cd ~/snugos-build
-    ```
-3.  **Download/Copy the Recipe:**
-    I have provided the files in this chat. You need to create the files exactly as I've shown.
-    *(Tip: You can access your Ubuntu files from Windows Explorer by typing `\\wsl$\Ubuntu\home\YOURNAME\snugos-build` in the address bar).*
+### 3. Chaotic-AUR Integration
+SnugOS leverages the **Chaotic-AUR** repository to provide pre-built binary packages for software not in the official Arch repos.
+*   **Why?** Building complex packages like `opentabletdriver` or `hyprland-git` from source during ISO creation is slow and error-prone.
+*   **Implementation:** The build script (`build_zenith.sh`) imports the Chaotic-AUR GPG keys and adds the repository to the build container's `pacman.conf`.
 
 ---
 
-## Phase 3: Build the ISO
+## 🛠️ Build System Internals
 
-This is where the magic happens. We will use the "Chef" script to cook the ISO.
+The build process is automated via `build_zenith.sh` and runs inside a Docker container.
 
-1.  **Run the builder:**
-    In your Ubuntu terminal, run:
-    ```bash
-    bash build_zenith.sh
-    ```
-2.  **Wait:** It will download the Arch Linux base and all your apps (WhatsApp, Obsidian, etc.). This takes about 10-20 minutes.
-3.  **Result:** When it says "SUCCESS!", you will have a file named `snug-os-x86_64.iso` in the `out` folder.
+### Key Components:
+1.  **`build_zenith.sh`**: The orchestrator.
+    *   Checks for Docker.
+    *   Spins up an `archlinux:latest` container.
+    *   Installs build dependencies (`archiso`, `grub`, `dosfstools`).
+    *   **Fixes:** Handles Windows CRLF line endings, initializes pacman keyrings, and sets up Chaotic-AUR mirrors.
+    *   **Branding:** dynamically patches bootloader configs (`syslinux`, `grub`) to replace "Arch Linux" with "SnugOS".
 
----
+2.  **`packages.x86_64`**: The package manifest.
+    *   Contains every package to be installed on the ISO.
+    *   Includes: `base`, `linux`, `hyprland`, `nvidia`, `mesa`, `kio`, `dolphin`, `krita`, etc.
 
-## Phase 4: Flash to USB
-
-Now you need to put that file onto a USB stick so your laptop can boot from it.
-
-1.  **Get Etcher:** Download [BalenaEtcher](https://www.balena.io/etcher/).
-2.  **Prepare USB:** Plug in a USB stick (8GB+). **Warning: Everything on the USB will be deleted.**
-3.  **Flash:**
-    *   Select **Flash from file** and pick your new `.iso`.
-    *   Select your **USB Drive**.
-    *   Click **Flash!**.
+3.  **`airootfs/`**: The root filesystem overlay.
+    *   Files here are copied directly to the ISO's root directory.
+    *   `etc/skel/`: Default user configuration (dotfiles).
+    *   `usr/local/bin/`: Custom scripts (`install-snugos.sh`, `snug-welcome`).
+    *   `etc/systemd/system/`: Enabled services.
 
 ---
 
-## Phase 5: Run & Install
+## 🎨 The "Dragonized" Aesthetics
 
-### Running "Live" (Safe Mode)
-This lets you try the OS without changing anything on your hard drive.
-1.  Plug the USB into the laptop you want to use.
-2.  Turn on the laptop and immediately tap the **Boot Menu Key** (usually F12, F11, or Esc).
-3.  Select your USB stick.
-4.  SnugOS will load! It will auto-login.
-    *   `Super+Space` opens the app search.
-    *   `Super+W` opens WhatsApp.
-    *   `Super+L` opens PW Live.
+The visual identity of SnugOS is defined by:
 
-### Installing (Permanent)
-If you love it and want it as your main OS:
-1.  While running SnugOS from the USB, press `Super+Space`.
-2.  Type "Install" and click **Install SnugOS**.
-3.  A terminal will open with **Archinstall**.
-    *   Follow the prompts (choose your language, keyboard, and drive).
-    *   **Warning:** Selecting "Wipe all drives" will delete Windows 11. If you want to keep Windows, choose "Dual Boot" or "Manual Partitioning" (Expert level).
-4.  Once it finishes, unplug the USB and restart.
+*   **Hyprland Config (`~/.config/hypr/hyprland.conf`):**
+    *   **Borders:** Neon gradients (Pink `#ff00ff` to Cyan `#00ffff`).
+    *   **Blur:** Heavy blur (size 6, passes 3) enabled for transparent windows.
+    *   **Animations:** Smooth `bezier` curves for window open/close.
+    *   **Window Rules:** Specific opacity rules for `kitty`, `dolphin`, and `wofi`.
+
+*   **Waybar (`~/.config/waybar/`):**
+    *   Custom CSS with neon gradients and rounded modules.
+    *   Uses `JetBrains Mono Nerd Font` for icons.
+
+*   **GTK Theme:**
+    *   **Theme:** `Sweet-Dark` (for that deep purple/neon look).
+    *   **Icons:** `candy-icons` (colorful, gradient-heavy icons).
 
 ---
 
-## Essential Shortcuts for Beginners
-*   **Super Key:** This is the "Windows" key on your keyboard.
-*   **Super + Space:** Open App Menu (Search for apps).
-*   **Super + Q:** Open Terminal (The command line).
-*   **Super + E:** Open File Manager (To see your files).
-*   **Super + C:** Close the current window.
-*   **Super + W / L / N:** WhatsApp / PW Live / OneNote.
-*   **Super + 1, 2, 3:** Switch between different screens (Workspaces).
+## 🔧 Post-Install & Maintenance
+
+### Updating the System
+Since SnugOS is Arch-based, you use `pacman`:
+```bash
+sudo pacman -Syu
+```
+
+### Installing AUR Packages
+We include a helper script `install-yay` to bootstrap the `yay` AUR helper:
+```bash
+install-yay
+yay -S package-name
+```
+
+### Tablet Configuration
+We use **OpenTabletDriver** (`otd-daemon`).
+*   **GUI:** Open "OpenTabletDriver GUI" from the menu to map buttons and area.
+*   **Daemon:** It starts automatically via `exec-once` in Hyprland config.
+
+### Customizing Boot Splash
+The boot splash uses **Plymouth**. To change it:
+1.  Install a new theme (e.g., from AUR).
+2.  Edit `/etc/plymouth/plymouthd.conf`.
+3.  Run: `sudo plymouth-set-default-theme -R <theme-name>`
+
+---
+
+**Happy Hacking!**

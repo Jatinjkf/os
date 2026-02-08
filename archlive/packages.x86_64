@@ -3,8 +3,19 @@ base
 base-devel
 linux
 linux-firmware
+sof-firmware
 amd-ucode
 intel-ucode
+
+# Graphics Drivers
+mesa
+xf86-video-amdgpu
+xf86-video-intel
+xf86-video-nouveau
+vulkan-radeon
+vulkan-intel
+virtualbox-guest-utils
+open-vm-tools
 
 # Desktop Environment
 hyprland
@@ -21,16 +32,72 @@ kitty
 xdg-desktop-portal-hyprland
 qt5-wayland
 qt6-wayland
+nwg-look
+hyprpaper
+zenity
+yad
+plymouth
 
-# File Manager
-thunar
-thunar-archive-plugin
-thunar-volman
+# Essential Functionality
+polkit-kde-agent
+cliphist
+wl-clip-persist
+swappy
+wf-recorder
+tlp
+tlp-rdw
+
+# Creative & Note-Taking (New)
+chaotic-keyring
+chaotic-mirrorlist
+opentabletdriver
+xf86-input-wacom
+libwacom
+xournalpp
+rnote
+mypaint
+krita
+
+# Hardware & Security (New)
+upower
+bolt
+usbutils
+pciutils
+smartmontools
+ufw
+gufw
+
+# Shell & Prompt (Dragonized Style)
+fish
+starship
+eza
+bat
+micro
+neovim
+fzf
+ripgrep
+btop
+fastfetch
+
+# Gaming & Performance
+gamemode
+mangohud
+goverlay
+steam
+lutris
+
+# File Manager (Dragonized/KDE)
+dolphin
+dolphin-plugins
+kio-extras
+ffmpegthumbs
+ark
+qt5-imageformats
+qt6-imageformats
 gvfs
 gvfs-google
 gvfs-mtp
 gnome-online-accounts
-tumbler
 
 # Applications
 chromium
@@ -45,6 +112,10 @@ bluez-utils
 networkmanager
 network-manager-applet
 nm-connection-editor
+vlc
+imv
+gnome-system-monitor
+gnome-software
 
 # Audio
 pipewire
@@ -67,9 +138,8 @@ vim
 git
 wget
 curl
+rsync
 rclone
-htop
-fastfetch
 brightnessctl
 playerctl
 ntfs-3g
@@ -78,10 +148,14 @@ os-prober
 # Login Manager (optional, we can auto-login to Hyprland)
 greetd
 greetd-tuigreet
-# Eye Candy
+# Eye Candy (Garuda-esque)
 ttf-jetbrains-mono-nerd
 papirus-icon-theme
 breeze-icons
+gnome-themes-extra
+wlogout
+sweet-gtk-theme
+candy-icons-git
 
 # Bootloader & ISO Tools
 syslinux

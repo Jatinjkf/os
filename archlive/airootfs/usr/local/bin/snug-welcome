@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# SnugOS Welcome App
+# Uses yad to display a welcome dialog
+
+# Set a default icon if not found
+ICON="system-help"
+
+# Display the dialog
+action=$(yad --title="Welcome to SnugOS" \
+    --text="<span size='x-large' weight='bold'>Welcome to SnugOS!</span>\n\nThis is a live environment based on Arch Linux.\nYou can explore the desktop, test your hardware,\nor install the OS to your disk." \
+    --window-icon="$ICON" \
+    --image="$ICON" \
+    --button="Install SnugOS!system-software-install:0" \
+    --button="Update System!system-software-update:1" \
+    --button="Get Support!web-browser:2" \
+    --button="Close!window-close:3" \
+    --center --width=500 --height=200 --borders=20)
+
+ret=$?
+
+case $ret in
+    0)
+        # Install SnugOS
+        exec kitty -e sudo archinstall
+        ;;
+    1)
+        # Update System
+        exec kitty -e sudo pacman -Syu
+        ;;
+    2)
+        # Get Support
+        exec xdg-open https://snug-os.org
+        ;;
+    *)
+        exit 0
+        ;;
+esac

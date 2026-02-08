@@ -1,0 +1,11 @@
+[Unit]
+Description=Create SnugOS User on First Boot
+Before=greetd.service getty@tty1.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/create-snug-user.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
