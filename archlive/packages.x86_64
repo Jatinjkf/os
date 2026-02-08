@@ -38,7 +38,7 @@ zenity
 yad
 plymouth
 
-# Essential Functionality (New)
+# Essential Functionality
 polkit-kde-agent
 cliphist
 wl-clip-persist
@@ -47,6 +47,15 @@ wf-recorder
 wofi-emoji
 tlp
 tlp-rdw
+
+# Hardware & Security (New)
+upower
+bolt
+usbutils
+pciutils
+smartmontools
+ufw
+gufw
 
 # Shell & Prompt (Dragonized Style)
 fish
