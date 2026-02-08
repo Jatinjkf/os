@@ -48,18 +48,19 @@ docker run --privileged --rm \
         # Check for specific files instead of just directories to handle empty folders
         if [ ! -f /archlive/syslinux/syslinux.cfg ]; then
             echo 'Copying default syslinux config...';
-            rm -rf /archlive/syslinux 2>/dev/null || true
-            cp -r /usr/share/archiso/configs/releng/syslinux /archlive/;
+            mkdir -p /archlive/syslinux
+            # Copy contents carefully to avoid nesting or permission issues
+            cp -r /usr/share/archiso/configs/releng/syslinux/* /archlive/syslinux/ || true
         fi
         if [ ! -f /archlive/grub/grub.cfg ]; then
             echo 'Copying default grub config...';
-            rm -rf /archlive/grub 2>/dev/null || true
-            cp -r /usr/share/archiso/configs/releng/grub /archlive/;
+            mkdir -p /archlive/grub
+            cp -r /usr/share/archiso/configs/releng/grub/* /archlive/grub/ || true
         fi
         if [ ! -f /archlive/efiboot/loader/loader.conf ]; then
             echo 'Copying default efiboot config...';
-            rm -rf /archlive/efiboot 2>/dev/null || true
-            cp -r /usr/share/archiso/configs/releng/efiboot /archlive/;
+            mkdir -p /archlive/efiboot
+            cp -r /usr/share/archiso/configs/releng/efiboot/* /archlive/efiboot/ || true
         fi
 
         # 4. Apply SnugOS Branding
