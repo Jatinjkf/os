@@ -163,3 +163,4 @@ grub
 efibootmgr
 dosfstools
 mtools
+archiso
