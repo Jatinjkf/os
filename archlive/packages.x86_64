@@ -12,10 +12,10 @@ mesa
 xf86-video-amdgpu
 xf86-video-intel
 xf86-video-nouveau
-xf86-video-vmware
 vulkan-radeon
 vulkan-intel
 virtualbox-guest-utils
+open-vm-tools
 
 # Desktop Environment
 hyprland
@@ -44,7 +44,6 @@ cliphist
 wl-clip-persist
 swappy
 wf-recorder
-wofi-emoji
 tlp
 tlp-rdw
 
